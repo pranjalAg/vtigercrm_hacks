@@ -1,0 +1,18 @@
+Go to vtlib/Vtiger/Functions.php
+Replace below function -
+
+static function validateImage($file_details) {
+	global $app_strings;
+	$file_type_details = explode("/", $file_details['type']);
+	$filetype = $file_type_details['1'];
+	if (!empty($filetype))
+	$filetype = strtolower($filetype);
+	if (($filetype == "jpeg" ) || ($filetype == "png") || ($filetype == "jpg" ) || ($filetype == "pjpeg" ) || ($filetype == "x-png") || ($filetype == "gif") || ($filetype == 'bmp')) {
+	$saveimage = 'true';
+	} else {
+	$saveimage = 'false';
+	$_SESSION['image_type_error'] .= "
+	  " . $file_details[name] . "" . $app_strings['MSG_IS_NOT_UPLOADED'];
+	}
+	return $saveimage;
+}
